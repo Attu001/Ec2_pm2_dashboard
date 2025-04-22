@@ -7,31 +7,8 @@ function App() {
 
   const fetchPM2Status = async () => {
     try {
-      const dummyData = [
-        {
-          name: "backend-api",
-          status: "online",
-          cpu: 3.1,
-          memory: "120.5",
-          uptime: Date.now() - 1000 * 60 * 60 * 2, // 2 hours ago
-        },
-        {
-          name: "worker-service",
-          status: "stopped",
-          cpu: 0.0,
-          memory: "0",
-          uptime: Date.now() - 1000 * 60 * 60 * 5, // 5 hours ago
-        },
-        {
-          name: "realtime-engine",
-          status: "online",
-          cpu: 7.8,
-          memory: "240.1",
-          uptime: Date.now() - 1000 * 60 * 10, // 10 minutes ago
-        }
-      ];
-      setProcesses(dummyData);
-      
+      const res = await axios.get('http://<EC2-IP>:3001/status'); // nedded real api of ec2 instance
+      setProcesses(res.data);
     } catch (err) {
       console.error('Error fetching PM2 status:', err);
     }
